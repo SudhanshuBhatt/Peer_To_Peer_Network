@@ -1,12 +1,10 @@
-import thread
-
 __author__ = 'Sudhanshu'
-
+import thread
 import socket
-
 def handlenewclient(clientSocket, clientAddress):
-        print("Received connection from Client address "+clientAddress)
+        print("Received connection from Client address "+str(clientAddress))
         clientSocket.send("Thank you for connecting")
+        clientSocket.close()
 
 
 class MainServer:
@@ -20,7 +18,7 @@ class MainServer:
 
     def createServerSocket(self):
         socketOBj = socket.socket()
-        hostName = "localhost"
+        hostName = 'localhost'
         socketOBj.bind((hostName, int(MainServer.serverPortNumber)))
         socketOBj.listen(1)
 
@@ -30,9 +28,8 @@ class MainServer:
                 print("Connection made")
             else:
                 print("Connection not made")
-            thread.start_new_thread(handlenewclient, clientSocket, clientAddress)
+            thread.start_new_thread(handlenewclient, (clientSocket, clientAddress))
 
 
-print("Trying to instantiate server")
-obj = MainServer(12345)
-obj.createServerSocket()
+
+

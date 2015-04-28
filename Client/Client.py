@@ -10,11 +10,10 @@ class Client:
         Client.clientPortNumber = portnumber
         print("The port number given to Client is: "+str(Client.clientPortNumber))
 
-    def createClient(self, portnumber):
+    def createClient(self):
         socketObj = socket.socket()
         hostname = "localhost"
-        print("The server port number connecting to is: "+str(MainServer.serverPortNumber))
-        socketObj.connect((hostname,MainServer.serverPortNumber))
+        print("The server port number connecting to is: "+str(12345))
+        socketObj.connect((hostname,12345))
+        print socketObj.recv(1024)
 
-
-obj = Client(4444)
