@@ -1,5 +1,5 @@
 __author__ = 'Sudhanshu'
 from Server import MainServer
 
-obj = MainServer.MainServer(12345)
+obj = MainServer.MainServer(7734)
 obj.createServerSocket()

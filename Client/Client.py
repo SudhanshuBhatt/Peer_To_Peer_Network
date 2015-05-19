@@ -13,7 +13,7 @@ class Client:
     def createClient(self):
         socketObj = socket.socket()
         hostname = "localhost"
-        print("The server port number connecting to is: "+str(12345))
-        socketObj.connect((hostname,12345))
+        print("The server port number connecting to is: "+str(7734))
+        socketObj.connect((hostname, 7734))
         print socketObj.recv(1024)
 
