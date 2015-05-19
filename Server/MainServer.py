@@ -1,23 +1,13 @@
 __author__ = 'Sudhanshu'
 import thread
 import socket
-import os
 from Database import Peers_List
 from Database import Peer_Node
 from Database import RFC_List
 from Database import RFC_Node
 
 
-def handlenewclient(clientSocket, clientAddress):
-    print("Received connection from{0} with port number  {1} and adding this peer to Active Peers".format(
-        str(clientAddress[0]), str(clientAddress[1])))
-    # This method call is to add the peer to the list of active peers
-    MainServer.addActivePeer(clientAddress[0], clientAddress[1])
 
-    ## Opening and reading a file
-    with open("C:\Users\Sudhanshu\PycharmProjects\PeerToPeerNetwork\FilesArchive\RFC_1.txt", "r+") as fileObj:
-        clientSocket.send(fileObj.read())
-        clientSocket.close()
 
 
 class MainServer:
@@ -43,10 +33,27 @@ class MainServer:
                 print("Connection made")
             else:
                 print("Connection not made")
-            thread.start_new_thread(handlenewclient, (clientSocket, clientAddress))
+            thread.start_new_thread(self.handlenewclient, (clientSocket, clientAddress))
+
+    def handlenewclient(self, clientSocket, clientAddress):
+        print("Received connection from{0} with port number  {1} and adding this peer to Active Peers".format(
+            str(clientAddress[0]), str(clientAddress[1])))
+        # This method call is to add the peer to the list of active peers
+        self.addActivePeer(clientAddress[0], clientAddress[1])
+        peer = self.getActivePeers()
+
+
+        ## Opening and reading a file
+        '''
+        with open("C:\Users\Sudhanshu\PycharmProjects\PeerToPeerNetwork\FilesArchive\RFC_1.txt", "r+") as fileObj:
+            clientSocket.send(fileObj.read())
+            clientSocket.close()
+        '''
 
     def getActivePeers(self):
-        return self.peersList.listOfActivePeers
+        count = 1
+        for peer in self.peersList.listOfActivePeers:
+            print(str(count)+") "+"Hostname: "+str(peer.peerHostName)+" PortNumber: "+ str(peer.peerServerPortNumber))
 
     def addActivePeer(self, hostname, serverport):
         newObject = Peer_Node.Peer_Node(hostname, serverport)
