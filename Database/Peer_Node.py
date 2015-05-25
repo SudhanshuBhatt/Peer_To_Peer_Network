@@ -2,10 +2,8 @@ __author__ = 'Sudhanshu'
 
 
 class Peer_Node:
-    peerHostName = None
     peerServerPortNumber = None
 
-    def __init__(self, peerHostName, peerServerPortNumber):
-        self.peerHostName = peerHostName
+    def __init__(self, peerServerPortNumber):
         self.peerServerPortNumber = peerServerPortNumber
 
